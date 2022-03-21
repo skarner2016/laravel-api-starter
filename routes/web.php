@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return response()->json([
+        'welcome' => 'hello world',
+    ]);
     return view('welcome');
 });
+
+Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);
