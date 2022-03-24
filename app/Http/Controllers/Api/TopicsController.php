@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Lib\App;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\TopicRequest;
+use App\Services\TopicService;
+use App\Http\Controllers\Controller;
 
 class TopicsController extends Controller
 {
@@ -12,8 +13,17 @@ class TopicsController extends Controller
      * @desc    topic 列表
      * @author  skarner <2022-03-24 19:51>
      */
-    public function index(TopicRequest $request)
+    public function index(Request $request)
     {
+        $typeId      = $request->input('type_id', 1);
+        $menuId      = $request->input('menu_id', TopicService::MENU_LATEST);
+        $perPage     = $request->input('per_page', App::PER_PAGE);
+        $currentPage = $request->input('current_page', App::CURRENT_PAGE);
+
+
+        $paginate = TopicService::topicPaginate($typeId, $menuId, $perPage, $currentPage);
+
+
         dd(__METHOD__, $request->all());
     }
 
@@ -21,16 +31,14 @@ class TopicsController extends Controller
      * @desc    创建 topic
      * @author  skarner <2022-03-24 17:45>
      */
-    public function store(TopicRequest $request)
+    public function store(Request $request)
     {
         dd(__METHOD__, $request->all());
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @desc
+     * @author  skarner <2022-03-24 22:51>
      */
     public function show($id)
     {
@@ -38,11 +46,8 @@ class TopicsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @desc
+     * @author  panjunda@heyuedi.net <2022-03-24 22:51>
      */
     public function update(Request $request, $id)
     {
@@ -50,10 +55,8 @@ class TopicsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @desc
+     * @author  panjunda@heyuedi.net <2022-03-24 22:52>
      */
     public function destroy($id)
     {

@@ -22,7 +22,7 @@ class MakeServiceCommand extends GeneratorCommand
      * 模板类型
      * @var string
      */
-    protected $type = 'Service';
+    protected $type = 'Services';
 
     /**
      * @desc    获取模板
