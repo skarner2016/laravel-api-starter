@@ -11,7 +11,7 @@ namespace App\Lib;
 class App
 {
     // 数据库
-    const DB_CONNECTION_DEFAULT = 'default';
+    const DB_CONNECTION_MYSQL = 'mysql';
 
     // 分页
     const CURRENT_PAGE = 1;

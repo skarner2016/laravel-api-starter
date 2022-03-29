@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-    protected $connection = App::DB_CONNECTION_DEFAULT;
+    protected $connection = App::DB_CONNECTION_MYSQL;
 
     protected $guarded = [];
 }

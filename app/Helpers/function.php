@@ -4,6 +4,33 @@
  * @author  skarner <2022-03-24 16:38>
  */
 
+if (!function_exists('is_local')) {
+    /**
+     * @desc    是否本地环境
+     * @return bool
+     * @author  skarner <2022-03-29 17:41>
+     */
+    function is_local(): bool
+    {
+        $env = config('app.env');
+
+        return strtolower($env) == 'local';
+    }
+}
+
+if (!function_exists('check_migrate')) {
+    /**
+     * @desc    迁移检测
+     * @author  skarner <2022-03-29 17:43>
+     */
+    function check_migrate()
+    {
+        if (!is_local()) {
+            exit('仅本地环境允许回滚迁移');
+        }
+    }
+}
+
 if (!function_exists('array_rebuild')) {
     /**
      * @desc    通过新的Key重建数组索引
