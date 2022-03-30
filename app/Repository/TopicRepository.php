@@ -5,8 +5,10 @@ namespace App\Repository;
 
 use Carbon\Carbon;
 use App\Models\TopicModel;
+use App\Models\CommentModel;
 use App\Services\TopicService;
 use PhpParser\Node\Stmt\Break_;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TopicRepository
@@ -23,7 +25,12 @@ class TopicRepository
     public static function topicPaginate(int $typeId, int $menuId, int $perPage, int $currentPage): LengthAwarePaginator
     {
         $query = TopicModel::query()
-            ->where('type', $typeId);
+            ->with(['comments' => function($query) {
+                $query->where('is_digest', CommentModel::IS_DIGEST_FALSE);
+            }])
+            ->where('type', $typeId)
+            ->where('status', TopicModel::STATUS_NORMAL)
+            ->where('deleted_at', null);
 
         // 筛选条件：热帖（一周内，按热度排序）
         if ($menuId == TopicService::MENU_HOT) {

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private string $tableName = '{{ table }}';
+    private string $tableName = 'users';
 
     /**
      * Run the migrations.
@@ -17,10 +17,13 @@ return new class extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->id();
+            $table->string('mobile')->unique()->comment('电话');
+            $table->string('name')->unique()->comment('昵称');
+            $table->unsignedTinyInteger('status')->default(0)->comment('状态:0正常，1封禁');
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE {$this->tableName} comment 'xxx'");
+        DB::statement("ALTER TABLE {$this->tableName} comment '用户表'");
     }
 
     /**

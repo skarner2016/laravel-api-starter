@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Lib\App;
+use App\Lib\Api;
 use Illuminate\Http\Request;
 use App\Services\TopicService;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TopicResource;
 
 class TopicsController extends Controller
 {
@@ -20,11 +22,12 @@ class TopicsController extends Controller
         $perPage     = $request->input('per_page', App::PER_PAGE);
         $currentPage = $request->input('current_page', App::CURRENT_PAGE);
 
-
         $paginate = TopicService::topicPaginate($typeId, $menuId, $perPage, $currentPage);
 
 
-        dd(__METHOD__, $request->all());
+
+        return Api::success(TopicResource::collection($paginate));
+        // return Api::success(new TopicResource($paginate));
     }
 
     /**
