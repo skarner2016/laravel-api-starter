@@ -25,9 +25,7 @@ class TopicRepository
     public static function topicPaginate(int $typeId, int $menuId, int $perPage, int $currentPage): LengthAwarePaginator
     {
         $query = TopicModel::query()
-            ->with(['comments' => function($query) {
-                $query->where('is_digest', CommentModel::IS_DIGEST_FALSE);
-            }])
+            ->with(['user'])
             ->where('type', $typeId)
             ->where('status', TopicModel::STATUS_NORMAL)
             ->where('deleted_at', null);

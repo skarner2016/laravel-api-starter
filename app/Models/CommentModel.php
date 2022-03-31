@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\CommentFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommentModel extends BaseModel
 {
@@ -20,5 +21,15 @@ class CommentModel extends BaseModel
     protected static function newFactory(): Factory|CommentFactory
     {
         return CommentFactory::new();
+    }
+
+    /**
+     * @desc    评论属于用户
+     * @return BelongsTo
+     * @author  skarner <2022-03-31 17:28>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(UserModel::class, 'user_id', 'id');
     }
 }

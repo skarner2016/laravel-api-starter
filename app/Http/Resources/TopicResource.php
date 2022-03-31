@@ -15,24 +15,14 @@ class TopicResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        => $this->id,
-            'user_id'   => $this->user_id,
-            'content'   => $this->content,
-            'hot'       => $this->hot,
-            'is_top'    => $this->is_top,
-            'is_digest' => $this->is_digest,
-
-            'comments' => $this->formatComments($this->comments),
+            'id'         => $this->id,
+            'user_id'    => $this->user_id,
+            'user_name'  => $this->user->name ?? '用户已注销',
+            'content'    => $this->content,
+            'hot'        => $this->hot,
+            'is_top'     => $this->is_top,
+            'is_digest'  => $this->is_digest,
+            'created_at' => $this->created_at->timestamp,
         ];
-    }
-
-    private function formatComments($comments)
-    {
-        $data = [];
-        foreach ($comments as $comment) {
-
-        }
-
-        return $data;
     }
 }

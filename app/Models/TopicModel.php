@@ -35,7 +35,7 @@ class TopicModel extends BaseModel
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(UserModel::class, 'id', 'user_id');
+        return $this->belongsTo(UserModel::class, 'user_id');
     }
 
     /**
