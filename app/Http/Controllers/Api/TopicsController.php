@@ -24,10 +24,7 @@ class TopicsController extends Controller
 
         $paginate = TopicService::topicPaginate($typeId, $menuId, $perPage, $currentPage);
 
-
-
         return Api::success(TopicResource::collection($paginate));
-        // return Api::success(new TopicResource($paginate));
     }
 
     /**
