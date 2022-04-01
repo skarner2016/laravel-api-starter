@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('topics', \App\Http\Controllers\Api\TopicsController::class);
+Route::resource('comments', \App\Http\Controllers\Api\CommentsController::class);

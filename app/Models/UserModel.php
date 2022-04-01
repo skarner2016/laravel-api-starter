@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -31,5 +32,21 @@ class UserModel extends BaseModel
     public function topics(): HasMany
     {
         return $this->hasMany(TopicModel::class, 'user_id', 'id');
+    }
+
+    /**
+     * @desc    头像
+     * @return Attribute
+     * @author  skarner <2022-04-01 11:30>
+     */
+    protected function headImg(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                $headImg = empty($this->head_img) ? 'default.jpg' : $this->head_img;
+
+                return config('app.url') . '/' . $headImg;
+            },
+        );
     }
 }

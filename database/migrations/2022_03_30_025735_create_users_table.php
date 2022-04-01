@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('mobile')->unique()->comment('电话');
             $table->string('name')->unique()->comment('昵称');
+            $table->string('head_img')->nullable()->comment('头像');
             $table->unsignedTinyInteger('status')->default(0)->comment('状态:0正常，1封禁');
             $table->timestamps();
         });

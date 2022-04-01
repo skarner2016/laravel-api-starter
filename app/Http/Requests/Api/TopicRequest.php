@@ -12,22 +12,18 @@ class TopicRequest extends ApiRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        switch ($this->method()) {
-            case 'GET':
-                return [
-                    'menu_id'      => ['int', 'in:' . implode(',', TopicService::MENU_LIST)],
-                    'per_page'     => ['int', 'min:1'],
-                    'current_page' => ['int', 'between:1, 25'],
-                ];
-            case 'POST':
-            case 'PUT':
-                return [
-                    'content' => ['required', 'string', 'max:300'],
-                ];
-            default:
-                return [];
-        }
+        return match ($this->method()) {
+            'GET'         => [
+                'menu_id'      => ['int', 'in:' . implode(',', TopicService::MENU_LIST)],
+                'per_page'     => ['int', 'min:1'],
+                'current_page' => ['int', 'between:1, 25'],
+            ],
+            'POST', 'PUT' => [
+                'content' => ['required', 'string', 'max:300'],
+            ],
+            default       => [],
+        };
     }
 }
