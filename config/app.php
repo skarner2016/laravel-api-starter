@@ -125,6 +125,10 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'jwt_key' => env('JWT_KEY'),
+    'jwt_alg' => env('JWT_ALG'),
+    'jwt_ttl' => env('JWT_TTL'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Services Providers
